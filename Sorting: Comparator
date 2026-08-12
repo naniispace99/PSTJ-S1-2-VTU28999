@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+typedef struct {
+    char name[100];
+    int score;
+} Player;
+
+int compare(const void *a, const void *b) {
+    Player *p1 = (Player *)a;
+    Player *p2 = (Player *)b;
+
+    // Higher score first
+    if (p1->score != p2->score) {
+        return p2->score - p1->score;
+    }
+
+    // Same score -> alphabetical order
+    return strcmp(p1->name, p2->name);
+}
+
+int main() {
+
+    int n;
+    scanf("%d", &n);
+
+    Player players[n];
+
+    for (int i = 0; i < n; i++) {
+        scanf("%s %d", players[i].name, &players[i].score);
+    }
+
+    qsort(players, n, sizeof(Player), compare);
+
+    for (int i = 0; i < n; i++) {
+        printf("%s %d\n", players[i].name, players[i].score);
+    }
+
+    return 0;
+}
